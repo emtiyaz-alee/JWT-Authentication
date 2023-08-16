@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <style>
+        #loginForm {
+            margin: 200px auto;
+            width: 300px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="loginForm">
+        <h1>Login </h1>
+        <label for="emailInput">Email:</label>
+        <input type="text" name="emailInput" id="email" placeholder="Enter Email">
+
+        <br>
+        <label for="passwordInput">password:</label>
+        <input type="text" name="passwordInput" id="password" placeholder="Enter password">
+
+        <br>
+
+        <button type="submit">login</button>
+        <button id="sbtn">Signup</button>
+
+
+    </form>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.js"></script>
+
+    <script type="module">
+        document.querySelector('#loginForm')
+            .addEventListener('submit', async (event) => {
+                event.preventDefault();
+                let email = document.querySelector('#email').value;
+                let password = document.querySelector('#password').value;
+                
+
+                try {
+                    const resp = await axios.post("/api/v1/login", {
+                        email: email,
+                        password: password
+                    })
+                   
+                    console.log("response: ", resp.status)
+                    
+                    if (resp.status === 200) {
+                        window.location.href = "/index.html";
+                    }
+                    
+                }
+
+                
+                
+                catch (e) {
+                    console.log(e)
+                  
+                   
+                
+            }
+            })
+            document.querySelector('#sbtn').addEventListener('click',()=>{
+                window.location.href='/signup.html'
+            })
+    </script>
+</body>
+
+</html>

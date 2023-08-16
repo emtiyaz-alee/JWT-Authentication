@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>signup</title>
+  <style>
+    #signupForm {
+      width: 300px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    /* Styles for the form headings */
+    #signupForm h1 {
+      text-align: center;
+    }
+
+    /* Styles for the form labels */
+    #signupForm label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    /* Styles for the form inputs */
+    #signupForm input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    /* Styles for the form submit button */
+    #signupForm button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    /* Styles for the form submit button on hover */
+    #signupForm button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+
+<body>
+  <form id="signupForm">
+    <h1>Signup </h1>
+    <label for="fnameInput">FirstName:</label>
+    <input type="text" name="fnameInput" id="fname" placeholder="Enter FirstName"><br>
+
+    <label for="lnameInput">LastName:</label>
+    <input type="text" name="lnameInput" id="lname" placeholder="Enter LastName"><br>
+
+    <label for="emailInput">Email:</label>
+    <input type="text" name="emailInput" id="email" placeholder="Enter Email">
+
+    <br>
+    <label for="passwordInput">password:</label>
+    <input type="text" name="passwordInput" id="password" placeholder="Enter password">
+
+    <br>
+
+    <button type="submit">Signup</button>
+
+
+  </form>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.js"></script>
+
+
+  <script type="module">
+    document.querySelector('#signupForm')
+      .addEventListener('submit', async (event) => {
+        event.preventDefault();
+        let FirstName = document.querySelector('#fname').value;
+        let LastName = document.querySelector('#lname').value;
+        let email = document.querySelector('#email').value;
+        let password = document.querySelector('#password').value;
+
+
+
+        try {
+          const resp = await axios.post("/api/v1/signup", {
+            firstName: FirstName,
+            lastName: LastName,
+            email: email,
+            password: password
+          })
+
+          console.log("response: ", resp.status)
+          if (resp.status === 200) {
+            window.location.href = "/login.html";
+          }
+
+        } catch (e) {
+          console.log(e)
+        }
+
+
+      })
+
+
+  </script>
+
+</body>
+
+</html>
